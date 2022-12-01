@@ -29,17 +29,17 @@
       <p class="header">Add new profile:</p>
       <div class="flex-row">
         <label class="label">Name:</label>
-        <input class="input">
+        <input class="input" v-model="name">
       </div>
       <div class="flex-row">
         <label class="label" for="filter">Email:</label>
-        <input class="input">
+        <input class="input" v-model="email">
       </div>
       <div class="flex-row">
         <label class="label">Specialisation:</label>
-        <input class="input">
+        <input class="input" v-model="specialisation">
       </div>
-      <button>Add</button>
+      <button @click="addNewProfile">Add</button>
     </div>
   </div>
 </template>
@@ -79,7 +79,11 @@ export default {
           likes: 53
         }
       ],
-      searchInput: ""
+      searchInput: "",
+      name: "",
+      email: "",
+      specialisation: "",
+      newProfile: {}
     };
   },
 
@@ -94,6 +98,25 @@ export default {
       this.profiles.sort(function(a, b) {
         return b.likes - a.likes;
       });
+    },
+
+    clearFileds() {
+        this.name = "",
+        this.email = "",
+        this.specialisation = ""
+    },
+
+    addNewProfile() {
+      let profilesLength = this.profiles.length;
+      this.newProfile = {
+        id: profilesLength + 1,
+        name: this.name,
+        email: this.email,
+        description: "Description for now",
+        likes: 0
+      };
+      this.profiles.push(this.newProfile);
+      this.clearFileds()
     }
   },
 
