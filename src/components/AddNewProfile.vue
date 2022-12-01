@@ -1,8 +1,8 @@
 <template>
   <div class="section">
     <p class="add-new-header p-md flex-row">
-        <span>add new profile</span>
-        <span class="add-new" @click="$emit('closeAddNew')">x</span>
+      <span>add new profile</span>
+      <span class="add-new" @click="$emit('closeAddNew')">x</span>
     </p>
     <div class="flex-row m-md">
       <label class="label">Name:</label>
@@ -14,7 +14,7 @@
       />
     </div>
     <span class="invalid-msg" v-if="name !== '' && !validateName"
-      >Name can only contains English characters</span
+      >Name can only contains English characters!</span
     >
     <div class="flex-row m-md">
       <label class="label" for="filter">Email:</label>
@@ -26,11 +26,14 @@
       />
     </div>
     <span class="invalid-msg" v-if="email !== '' && !validateEmail"
-      >Invalid email address</span
+      >Invalid email address!</span
     >
     <div class="bg-white specialization">
       <div class="checkbox">Specialisation:</div>
       <div class="p-md flex-column">
+        <div v-if="specialisationError" class="invalid-msg">
+          Please select at least one of the items below :
+        </div>
         <div class="checkbox-item">
           <input
             class="input"
@@ -50,7 +53,9 @@
             value="Radiologist"
             v-model="checkedSpecialisations"
           />
-          <label for="Radiologist" class="p-md checkbox-label">Radiologist</label>
+          <label for="Radiologist" class="p-md checkbox-label"
+            >Radiologist</label
+          >
         </div>
 
         <div class="checkbox-item">
@@ -61,7 +66,9 @@
             value="Cardiologist"
             v-model="checkedSpecialisations"
           />
-          <label for="Cardiologist" class="p-md checkbox-label">Cardiologist</label>
+          <label for="Cardiologist" class="p-md checkbox-label"
+            >Cardiologist</label
+          >
         </div>
         <div class="checkbox-item">
           <input
@@ -71,7 +78,9 @@
             value="Psychiatrist"
             v-model="checkedSpecialisations"
           />
-          <label for="Psychiatrist" class="p-md checkbox-label">Psychiatrist</label>
+          <label for="Psychiatrist" class="p-md checkbox-label"
+            >Psychiatrist</label
+          >
         </div>
         <div class="checkbox-item">
           <input
@@ -81,12 +90,14 @@
             value="Dermatologist"
             v-model="checkedSpecialisations"
           />
-          <label for="Dermatologist" class="p-md checkbox-label">Dermatologist</label>
+          <label for="Dermatologist" class="p-md checkbox-label"
+            >Dermatologist</label
+          >
         </div>
       </div>
     </div>
     <div v-if="formError" class="invalid-msg">
-      Please complete the form correctly
+      Please fill out all fields.
     </div>
     <button class="add-btn" @click="addNewProfile">Add</button>
   </div>
@@ -102,6 +113,7 @@ export default {
       newProfile: {},
       formError: false,
       checkedSpecialisations: [],
+      specialisationError: false,
     };
   },
 
@@ -136,13 +148,24 @@ export default {
         likes: 0,
         userHasLikedProfile: false,
       };
-      if (this.validateName && this.validateEmail) {
+      if (
+        this.validateName &&
+        this.validateEmail &&
+        this.checkedSpecialisations.length > 0
+      ) {
         this.profiles.push(this.newProfile);
         this.clearFileds();
         this.$emit("closeAddNew");
+      } else if (this.checkedSpecialisations.length == 0) {
+        this.specialisationError = true;
+        setTimeout(() => {
+          this.specialisationError = false;
+        }, 2500);
+      } else if (this.validateName) {
+        this.validateName = true;
       } else {
         this.showErrorMessage();
-        this.clearFileds();
+        // this.clearFileds();
       }
     },
   },

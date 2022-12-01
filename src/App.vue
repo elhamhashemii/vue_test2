@@ -227,9 +227,13 @@ button {
 
 .invalid-msg {
   color: red;
+  font-weight: bold;
   display: block;
   font-size: 0.8rem;
   margin: 0.5rem 0;
+  background-color: rgb(255, 157, 157);
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
 .buttons {
