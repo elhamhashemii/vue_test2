@@ -29,16 +29,19 @@
       <p class="header">Add new profile:</p>
       <div class="flex-row">
         <label class="label">Name:</label>
-        <input class="input" v-model="name">
+        <input v-model="name" class="input" :class="name == '' || validateName ? '' : 'invalid' " id="name">
       </div>
+      <span class="invalid-msg" v-if="name !== '' && !validateName">Name can only contains English characters</span>
       <div class="flex-row">
         <label class="label" for="filter">Email:</label>
-        <input class="input" v-model="email">
+        <input class="input"  :class="email == '' || validateEmail ? '' : 'invalid'" id="email" v-model="email">
       </div>
+      <span class="invalid-msg" v-if="email !== '' && !validateEmail">Invalid email address</span>
       <div class="flex-row">
         <label class="label">Specialisation:</label>
         <input class="input" v-model="specialisation">
       </div>
+      <div v-if="formError" class="invalid-msg">Please complete the form correctly</div>
       <button @click="addNewProfile">Add</button>
     </div>
   </div>
@@ -83,7 +86,8 @@ export default {
       name: "",
       email: "",
       specialisation: "",
-      newProfile: {}
+      newProfile: {},
+      formError: false
     };
   },
 
@@ -106,6 +110,13 @@ export default {
         this.specialisation = ""
     },
 
+    showErrorMessage() {
+      this.formError = true
+      setTimeout(() => {
+        this.formError = false
+      }, 3000);
+    },
+
     addNewProfile() {
       let profilesLength = this.profiles.length;
       this.newProfile = {
@@ -115,10 +126,16 @@ export default {
         description: "Description for now",
         likes: 0
       };
-      this.profiles.push(this.newProfile);
-      this.clearFileds()
-    }
-  },
+      if(this.validateName && this.validateEmail) {
+        this.profiles.push(this.newProfile);
+        this.clearFileds()
+      } else {
+        this.showErrorMessage()
+        this.clearFileds()
+        }
+      }
+    },
+
 
   computed: {
     filteredProfiles() {
@@ -126,7 +143,23 @@ export default {
         return profile.name.toLowerCase().includes(this.searchInput.toLowerCase())
       })
     },
-  }
+
+    validateName() {
+      return /^[A-Za-z][A-Za-z0-9]*$/.test(this.name)
+    },
+
+    validateEmail() {
+      return  /(.+)@(.+){2,}\.(.+){2,}/.test(this.email)
+    }
+  },
+
+  // watch: {
+  //   name(newVal, oldVal){
+  //     if(newVal == "hello"){
+  //       console.log(oldVal);
+  //     }
+  //   }
+  // }
 
 };
 </script>
@@ -201,7 +234,7 @@ button {
 
 .flex-row {
   display: flex;
-  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .label {
@@ -220,6 +253,19 @@ button {
   border: 0;
   color: #8f8f8f;
   font-size: 1rem;
+  outline: none;
+}
+
+.invalid{
+  color: red;
+  border: 1px solid red;
+}
+
+.invalid-msg{
+  color: red;
+  display: block;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
 }
 
 .buttons {
