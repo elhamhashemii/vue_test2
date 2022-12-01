@@ -133,7 +133,6 @@ export default {
     rgba(65, 184, 131, 0.9),
     rgba(52, 73, 94, 0.9)
   );
-
   font-size: 1.5em;
 }
 
@@ -150,6 +149,11 @@ button {
   font-size: 0.5em;
   font-weight: 600;
 }
+  @media screen and (max-width: 600px) {
+    button{
+      padding: 0.5rem;
+    }
+  }
 
 .add-btn {
   padding: 1rem;
@@ -162,29 +166,20 @@ button {
 
 .section {
   width: 100%;
-  min-width: 500px;
-  /* padding: 2em; */
   margin: 30px auto;
   position: relative;
+  padding: 1em;
   /* background: rgba(0, 0, 0, 0.15); */
 }
 
 @media screen and (min-width: 600px) {
   .section {
     width: 50vw;
-    max-width: 15em;
+    min-width: 350px;
+    padding: 10px;
   }
 }
 
-.section::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  /* background: #35c3c1; */
-}
 
 .flex-row {
   display: flex;
