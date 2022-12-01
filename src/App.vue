@@ -16,6 +16,7 @@
         :key="profile.id"
         :profile="profile"
         class="profile"
+        @likeDislikeHandler="likeDislikeHandler(profile)"
       />
 
       <div class="icons-note">
@@ -60,56 +61,56 @@
         <div class="checkbox">Specialisation:</div>
         <div class="p-md flex-column">
           <div class="checkbox-item">
-          <input
-            class="input"
-            type="checkbox"
-            id="surgeon"
-            value="Surgeon"
-            v-model="checkedSpecialisations"
-          />
-          <label for="Surgeon" class="p-md">Surgeon</label>
+            <input
+              class="input"
+              type="checkbox"
+              id="surgeon"
+              value="Surgeon"
+              v-model="checkedSpecialisations"
+            />
+            <label for="Surgeon" class="p-md">Surgeon</label>
           </div>
 
           <div class="checkbox-item">
-          <input
-            class="input"
-            type="checkbox"
-            id="radiologist"
-            value="Radiologist"
-            v-model="checkedSpecialisations"
-          />
-          <label for="Radiologist" class="p-md">Radiologist</label>
+            <input
+              class="input"
+              type="checkbox"
+              id="radiologist"
+              value="Radiologist"
+              v-model="checkedSpecialisations"
+            />
+            <label for="Radiologist" class="p-md">Radiologist</label>
           </div>
 
           <div class="checkbox-item">
-          <input
-            class="input"
-            type="checkbox"
-            id="cardiologist"
-            value="Cardiologist"
-            v-model="checkedSpecialisations"
-          />
-          <label for="Cardiologist" class="p-md">Cardiologist</label>
+            <input
+              class="input"
+              type="checkbox"
+              id="cardiologist"
+              value="Cardiologist"
+              v-model="checkedSpecialisations"
+            />
+            <label for="Cardiologist" class="p-md">Cardiologist</label>
           </div>
           <div class="checkbox-item">
-          <input
-            class="input"
-            type="checkbox"
-            id="psychiatrist"
-            value="Psychiatrist"
-            v-model="checkedSpecialisations"
-          />
-          <label for="Psychiatrist" class="p-md">Psychiatrist</label>
+            <input
+              class="input"
+              type="checkbox"
+              id="psychiatrist"
+              value="Psychiatrist"
+              v-model="checkedSpecialisations"
+            />
+            <label for="Psychiatrist" class="p-md">Psychiatrist</label>
           </div>
           <div class="checkbox-item">
-          <input
-            class="input"
-            type="checkbox"
-            id="dermatologist"
-            value="Dermatologist"
-            v-model="checkedSpecialisations"
-          />
-          <label for="Dermatologist" class="p-md">Dermatologist</label>
+            <input
+              class="input"
+              type="checkbox"
+              id="dermatologist"
+              value="Dermatologist"
+              v-model="checkedSpecialisations"
+            />
+            <label for="Dermatologist" class="p-md">Dermatologist</label>
           </div>
         </div>
       </div>
@@ -140,6 +141,7 @@ export default {
           email: "wojciech@poz.pl",
           description: "Anaesthesiologist",
           likes: 34,
+          userHasLikedProfile: false,
         },
         {
           id: 2,
@@ -147,6 +149,7 @@ export default {
           email: "maria@poz.pl",
           description: "Radiologist",
           likes: 28,
+          userHasLikedProfile: false,
         },
         {
           id: 3,
@@ -154,6 +157,7 @@ export default {
           email: "anna@poz.pl",
           description: "Surgeon",
           likes: 53,
+          userHasLikedProfile: false,
         },
       ],
       searchInput: "",
@@ -198,6 +202,7 @@ export default {
         email: this.email,
         description: this.description,
         likes: 0,
+        userHasLikedProfile: false,
       };
       if (this.validateName && this.validateEmail) {
         this.profiles.push(this.newProfile);
@@ -205,6 +210,15 @@ export default {
       } else {
         this.showErrorMessage();
         this.clearFileds();
+      }
+    },
+
+    likeDislikeHandler(profile) {
+      profile.userHasLikedProfile = !profile.userHasLikedProfile;
+      if (profile.userHasLikedProfile) {
+        profile.likes++;
+      } else {
+        profile.likes--;
       }
     },
   },
@@ -227,14 +241,14 @@ export default {
     },
 
     description() {
-      return this.checkedSpecialisations.toString()
-    }
+      return this.checkedSpecialisations.toString();
+    },
   },
 };
 </script>
 
 <style>
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -311,7 +325,7 @@ button {
   margin-top: 1em;
 }
 
-.flex-column{
+.flex-column {
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -381,7 +395,7 @@ button {
   text-align: start;
 }
 
-.checkbox-item{
+.checkbox-item {
   color: blue;
   font-size: 0.8rem;
   font-weight: bold;
