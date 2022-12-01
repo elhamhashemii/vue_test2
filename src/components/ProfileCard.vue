@@ -4,7 +4,7 @@
       <DoctorIcon class="avatar" />
       <div class="data">
         <div class="profile-content">
-          <div>
+          <div class="flex-row justify-between">
             <strong>{{ profile.name }}</strong>
             <a :href="profile.email" class="email">{{ profile.email }}</a>
           </div>
@@ -51,8 +51,8 @@ export default {
   display: flex;
   align-items: center;
   border: solid 1px rgb(172, 172, 172);
-  border-radius: 3px;
-  padding: 10px;
+  border-radius: 16px;
+  padding: 1rem;
   font-size: 14px;
   color: rgb(82, 82, 82);
   background-color: #fff;
@@ -72,6 +72,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
+}
+
+.profile{
+  background-color: rgba(140, 255, 226, 0.097);
+  padding: 0.5rem;
+  border-radius: 0.75rem;
 }
 
 .profile-content {
@@ -83,10 +90,16 @@ export default {
 
 .email {
   margin-left: 15px;
+  text-decoration: none;
+  color: rgb(8, 130, 89);
+  font-weight: bold;
 }
 
 .description {
   margin-top: 5px;
+  font-size: 0.8rem;
+  color: rgb(124, 177, 143);
+  font-weight: bold;
 }
 
 .likes {
@@ -110,5 +123,10 @@ export default {
 
 .comment-input {
   width: 100%;
+  border-radius: 12px;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
 }
 </style>

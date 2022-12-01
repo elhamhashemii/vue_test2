@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <p class="header p-md flex-row">
+    <p class="add-new-header p-md flex-row">
         <span>add new profile</span>
         <span class="add-new" @click="$emit('closeAddNew')">x</span>
     </p>
@@ -28,7 +28,7 @@
     <span class="invalid-msg" v-if="email !== '' && !validateEmail"
       >Invalid email address</span
     >
-    <div class="bg-white">
+    <div class="bg-white specialization">
       <div class="checkbox">Specialisation:</div>
       <div class="p-md flex-column">
         <div class="checkbox-item">
@@ -39,7 +39,7 @@
             value="Surgeon"
             v-model="checkedSpecialisations"
           />
-          <label for="Surgeon" class="p-md">Surgeon</label>
+          <label for="Surgeon" class="p-md checkbox-label">Surgeon</label>
         </div>
 
         <div class="checkbox-item">
@@ -50,7 +50,7 @@
             value="Radiologist"
             v-model="checkedSpecialisations"
           />
-          <label for="Radiologist" class="p-md">Radiologist</label>
+          <label for="Radiologist" class="p-md checkbox-label">Radiologist</label>
         </div>
 
         <div class="checkbox-item">
@@ -61,7 +61,7 @@
             value="Cardiologist"
             v-model="checkedSpecialisations"
           />
-          <label for="Cardiologist" class="p-md">Cardiologist</label>
+          <label for="Cardiologist" class="p-md checkbox-label">Cardiologist</label>
         </div>
         <div class="checkbox-item">
           <input
@@ -71,7 +71,7 @@
             value="Psychiatrist"
             v-model="checkedSpecialisations"
           />
-          <label for="Psychiatrist" class="p-md">Psychiatrist</label>
+          <label for="Psychiatrist" class="p-md checkbox-label">Psychiatrist</label>
         </div>
         <div class="checkbox-item">
           <input
@@ -81,14 +81,14 @@
             value="Dermatologist"
             v-model="checkedSpecialisations"
           />
-          <label for="Dermatologist" class="p-md">Dermatologist</label>
+          <label for="Dermatologist" class="p-md checkbox-label">Dermatologist</label>
         </div>
       </div>
     </div>
     <div v-if="formError" class="invalid-msg">
       Please complete the form correctly
     </div>
-    <button @click="addNewProfile">Add</button>
+    <button class="add-btn" @click="addNewProfile">Add</button>
   </div>
 </template>
 

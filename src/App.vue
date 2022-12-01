@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="flex-row header p-md">
-      <p>Pro Doctors</p>
+      <p class="title">Pro Doctors</p>
       <p @click="showAddNewProfileHandler" class="add-new">+</p>
     </div>
     <div class="section" v-if="!showAddNewProfile">
@@ -114,18 +114,19 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 #app {
-  font-family: "Roboto", helvetica, arial, sans-serif;
+  font-family: "Ubuntu", sans-serif;
   text-align: center;
   color: #2c3e50;
   padding-bottom: 60px;
   position: relative;
-  height: 100vh;
+  height: fit-content;
   background: linear-gradient(
     135deg,
     rgba(65, 184, 131, 0.9),
@@ -137,14 +138,21 @@ export default {
 
 button {
   display: block;
-  padding: 1em;
+  padding: 0.3em 1.5em;
   width: 100%;
   background-color: #41b883;
   border: 1px solid #41b883;
+  border-radius: 12px;
+  margin-left: 0.5rem;
   color: #fff;
   cursor: pointer;
   font-size: 0.5em;
   font-weight: 600;
+}
+
+.add-btn {
+  padding: 1rem;
+  margin: 0;
 }
 
 .content {
@@ -194,8 +202,10 @@ button {
   align-items: center;
   justify-content: center;
   font-size: 12px;
-
+  border-radius: 12px 0 0 12px;
   background: #f5f6f8;
+  color: #0d7647;
+  font-weight: bold;
 }
 
 .input {
@@ -205,11 +215,14 @@ button {
   color: #8f8f8f;
   font-size: 1rem;
   outline: none;
+  border-radius: 0 12px 12px 0;
+  background-color: #b6efd5f9;
 }
 
 .invalid {
   color: red;
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  background-color: rgb(255, 157, 157);
 }
 
 .invalid-msg {
@@ -249,6 +262,9 @@ button {
   padding: 1rem;
   font-size: 0.8rem;
   text-align: start;
+  border-radius: 12px;
+  color: #0d7647;
+  font-weight: bold;
 }
 
 .checkbox-item {
@@ -260,12 +276,17 @@ button {
 
 /* UI improvement */
 
-.header {
+.header,
+.add-new-header {
   width: 100%;
   color: #2c3e50;
   justify-content: space-between;
   padding: 0.75rem 2rem;
   background-color: #79f7be;
+}
+
+.add-new-header {
+  border-radius: 12px;
 }
 
 .m-md {
@@ -274,5 +295,23 @@ button {
 
 .add-new {
   cursor: pointer;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.specialization {
+  border-radius: 12px;
+}
+
+.checkbox-label {
+  color: #2a9867;
+  font-weight: bold;
+}
+
+.title {
+  color: rgb(23, 181, 107);
+  font-weight: bold;
 }
 </style>
