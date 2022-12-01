@@ -79,6 +79,7 @@ export default {
   background-color: rgba(140, 255, 226, 0.097);
   padding: 0.5rem;
   border-radius: 0.75rem;
+  box-shadow: 2px 2px 5px rgb(46, 120, 101);
 }
 
 .profile-content {

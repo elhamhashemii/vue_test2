@@ -285,8 +285,8 @@ button {
   width: 100%;
   color: #2c3e50;
   justify-content: space-between;
-  padding: 0.75rem 2rem;
-  background-color: #79f7be;
+  padding: 1rem 2rem;
+  background-color: #aeffc6;
 }
 
 .add-new-header {
@@ -299,6 +299,8 @@ button {
 
 .add-new {
   cursor: pointer;
+  font-weight: bold;
+  color: rgb(23, 181, 107);
 }
 
 .justify-between {

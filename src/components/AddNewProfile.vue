@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <p class="add-new-header p-md flex-row">
-      <span>add new profile</span>
+      <span class="title">add new profile</span>
       <span class="add-new" @click="$emit('closeAddNew')">x</span>
     </p>
     <div class="flex-row m-md">
