@@ -4,7 +4,7 @@
     <div class="section">
       <div class="flex-row">
         <label class="label" for="filter">Find profile:</label>
-        <input class="input" v-model="searchInput">
+        <input class="input" v-model="searchInput" />
       </div>
       <div class="buttons">
         <button @click="sortAsc">▲</button>
@@ -20,8 +20,13 @@
 
       <div class="icons-note">
         Icons made by
-        <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
-        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+        <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+          >Freepik</a
+        >
+        from
+        <a href="https://www.flaticon.com/" title="Flaticon"
+          >www.flaticon.com</a
+        >
       </div>
     </div>
 
@@ -29,19 +34,88 @@
       <p class="header">Add new profile:</p>
       <div class="flex-row">
         <label class="label">Name:</label>
-        <input v-model="name" class="input" :class="name == '' || validateName ? '' : 'invalid' " id="name">
+        <input
+          v-model="name"
+          class="input"
+          :class="name == '' || validateName ? '' : 'invalid'"
+          id="name"
+        />
       </div>
-      <span class="invalid-msg" v-if="name !== '' && !validateName">Name can only contains English characters</span>
+      <span class="invalid-msg" v-if="name !== '' && !validateName"
+        >Name can only contains English characters</span
+      >
       <div class="flex-row">
         <label class="label" for="filter">Email:</label>
-        <input class="input"  :class="email == '' || validateEmail ? '' : 'invalid'" id="email" v-model="email">
+        <input
+          class="input"
+          :class="email == '' || validateEmail ? '' : 'invalid'"
+          id="email"
+          v-model="email"
+        />
       </div>
-      <span class="invalid-msg" v-if="email !== '' && !validateEmail">Invalid email address</span>
-      <div class="flex-row">
-        <label class="label">Specialisation:</label>
-        <input class="input" v-model="specialisation">
+      <span class="invalid-msg" v-if="email !== '' && !validateEmail"
+        >Invalid email address</span
+      >
+      <div class="bg-white">
+        <div class="checkbox">Specialisation:</div>
+        <div class="p-md flex-column">
+          <div class="checkbox-item">
+          <input
+            class="input"
+            type="checkbox"
+            id="surgeon"
+            value="Surgeon"
+            v-model="checkedSpecialisations"
+          />
+          <label for="Surgeon" class="p-md">Surgeon</label>
+          </div>
+
+          <div class="checkbox-item">
+          <input
+            class="input"
+            type="checkbox"
+            id="radiologist"
+            value="Radiologist"
+            v-model="checkedSpecialisations"
+          />
+          <label for="Radiologist" class="p-md">Radiologist</label>
+          </div>
+
+          <div class="checkbox-item">
+          <input
+            class="input"
+            type="checkbox"
+            id="cardiologist"
+            value="Cardiologist"
+            v-model="checkedSpecialisations"
+          />
+          <label for="Cardiologist" class="p-md">Cardiologist</label>
+          </div>
+          <div class="checkbox-item">
+          <input
+            class="input"
+            type="checkbox"
+            id="psychiatrist"
+            value="Psychiatrist"
+            v-model="checkedSpecialisations"
+          />
+          <label for="Psychiatrist" class="p-md">Psychiatrist</label>
+          </div>
+          <div class="checkbox-item">
+          <input
+            class="input"
+            type="checkbox"
+            id="dermatologist"
+            value="Dermatologist"
+            v-model="checkedSpecialisations"
+          />
+          <label for="Dermatologist" class="p-md">Dermatologist</label>
+          </div>
+        </div>
       </div>
-      <div v-if="formError" class="invalid-msg">Please complete the form correctly</div>
+      <div v-if="formError" class="invalid-msg">
+        Please complete the form correctly
+      </div>
       <button @click="addNewProfile">Add</button>
     </div>
   </div>
@@ -54,7 +128,7 @@ export default {
   name: "App",
 
   components: {
-    ProfileCard
+    ProfileCard,
   },
 
   data() {
@@ -65,55 +139,54 @@ export default {
           name: "Wojciech",
           email: "wojciech@poz.pl",
           description: "Anaesthesiologist",
-          likes: 34
+          likes: 34,
         },
         {
           id: 2,
           name: "Maria",
           email: "maria@poz.pl",
           description: "Radiologist",
-          likes: 28
+          likes: 28,
         },
         {
           id: 3,
           name: "Anna",
           email: "anna@poz.pl",
           description: "Surgeon",
-          likes: 53
-        }
+          likes: 53,
+        },
       ],
       searchInput: "",
       name: "",
       email: "",
       specialisation: "",
       newProfile: {},
-      formError: false
+      formError: false,
+      checkedSpecialisations: [],
     };
   },
 
   methods: {
     sortAsc() {
-      this.profiles.sort(function(a, b) {
+      this.profiles.sort(function (a, b) {
         return a.likes - b.likes;
       });
     },
 
     sortDesc() {
-      this.profiles.sort(function(a, b) {
+      this.profiles.sort(function (a, b) {
         return b.likes - a.likes;
       });
     },
 
     clearFileds() {
-        this.name = "",
-        this.email = "",
-        this.specialisation = ""
+      (this.name = ""), (this.email = ""), (this.checkedSpecialisations = []);
     },
 
     showErrorMessage() {
-      this.formError = true
+      this.formError = true;
       setTimeout(() => {
-        this.formError = false
+        this.formError = false;
       }, 3000);
     },
 
@@ -123,48 +196,49 @@ export default {
         id: profilesLength + 1,
         name: this.name,
         email: this.email,
-        description: "Description for now",
-        likes: 0
+        description: this.description,
+        likes: 0,
       };
-      if(this.validateName && this.validateEmail) {
+      if (this.validateName && this.validateEmail) {
         this.profiles.push(this.newProfile);
-        this.clearFileds()
+        this.clearFileds();
       } else {
-        this.showErrorMessage()
-        this.clearFileds()
-        }
+        this.showErrorMessage();
+        this.clearFileds();
       }
     },
-
+  },
 
   computed: {
     filteredProfiles() {
       return this.profiles.filter((profile) => {
-        return profile.name.toLowerCase().includes(this.searchInput.toLowerCase())
-      })
+        return profile.name
+          .toLowerCase()
+          .includes(this.searchInput.toLowerCase());
+      });
     },
 
     validateName() {
-      return /^[A-Za-z][A-Za-z0-9]*$/.test(this.name)
+      return /^[A-Za-z][A-Za-z0-9]*$/.test(this.name);
     },
 
     validateEmail() {
-      return  /(.+)@(.+){2,}\.(.+){2,}/.test(this.email)
+      return /(.+)@(.+){2,}\.(.+){2,}/.test(this.email);
+    },
+
+    description() {
+      return this.checkedSpecialisations.toString()
     }
   },
-
-  // watch: {
-  //   name(newVal, oldVal){
-  //     if(newVal == "hello"){
-  //       console.log(oldVal);
-  //     }
-  //   }
-  // }
-
 };
 </script>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: "Roboto", helvetica, arial, sans-serif;
   text-align: center;
@@ -189,7 +263,7 @@ button {
   display: block;
   padding: 1em;
   width: 100%;
-  background-color: #41B883;
+  background-color: #41b883;
   border: 1px solid;
   color: #fff;
   cursor: pointer;
@@ -204,7 +278,7 @@ button {
 
 .section {
   width: 100%;
-  min-width: 300px;
+  min-width: 500px;
   padding: 2em;
   margin-top: 30px;
   position: relative;
@@ -237,6 +311,13 @@ button {
   margin-top: 1em;
 }
 
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+}
+
 .label {
   width: 80px;
   display: flex;
@@ -256,12 +337,12 @@ button {
   outline: none;
 }
 
-.invalid{
+.invalid {
   color: red;
   border: 1px solid red;
 }
 
-.invalid-msg{
+.invalid-msg {
   color: red;
   display: block;
   font-size: 0.8rem;
@@ -281,5 +362,29 @@ button {
 .icons-note {
   margin-top: 30px;
   font-size: 10px;
+}
+
+.bg-white {
+  background-color: #fff;
+  margin-bottom: 1rem;
+}
+
+.p-md {
+  padding: 0.75rem 0.5rem;
+}
+
+.checkbox {
+  background: #f5f6f8;
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  text-align: start;
+}
+
+.checkbox-item{
+  color: blue;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin: 0.25rem 2rem;
 }
 </style>
