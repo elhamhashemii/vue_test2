@@ -233,7 +233,7 @@ export default {
     },
 
     validateName() {
-      return /^[A-Za-z][A-Za-z0-9]*$/.test(this.name);
+      return /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(this.name);
     },
 
     validateEmail() {
