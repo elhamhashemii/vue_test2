@@ -97,7 +97,7 @@
       </div>
     </div>
     <div v-if="formError" class="invalid-msg">
-      Please fill out all fields.
+      Please fill out all the fields correctly.
     </div>
     <button class="add-btn" @click="addNewProfile">Add</button>
   </div>
@@ -157,12 +157,11 @@ export default {
         this.clearFileds();
         this.$emit("closeAddNew");
       } else if (this.checkedSpecialisations.length == 0) {
+        this.showErrorMessage();
         this.specialisationError = true;
         setTimeout(() => {
           this.specialisationError = false;
-        }, 2500);
-      } else if (this.validateName) {
-        this.validateName = true;
+        }, 3000);
       } else {
         this.showErrorMessage();
         // this.clearFileds();
