@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-    <p>Profiles List</p>
-    <div class="section">
+    <div class="flex-row header p-md">
+      <p>Pro Doctors</p>
+      <p @click="showAddNewProfileHandler" class="add-new">+</p>
+    </div>
+    <div class="section" v-if="!showAddNewProfile">
       <div class="flex-row">
         <label class="label" for="filter">Find profile:</label>
         <input class="input" v-model="searchInput" />
-      </div>
-      <div class="buttons">
-        <button @click="sortAsc">▲</button>
-        <button @click="sortDesc">▼</button>
+        <div class="buttons">
+          <button @click="sortAsc">▲</button>
+          <button @click="sortDesc">▼</button>
+        </div>
       </div>
       <ProfileCard
         v-for="profile in filteredProfiles"
@@ -18,7 +21,11 @@
         @likeDislikeHandler="likeDislikeHandler(profile)"
       />
     </div>
-    <AddNewProfile :profiles="profiles" />
+    <AddNewProfile
+      v-if="showAddNewProfile"
+      @closeAddNew="showAddNewProfile = false"
+      :profiles="profiles"
+    />
   </div>
 </template>
 
@@ -50,7 +57,7 @@ export default {
           name: "Maria",
           email: "maria@poz.pl",
           description: "Radiologist",
-          likes: 28,
+          likes: 26,
           userHasLikedProfile: false,
         },
         {
@@ -63,6 +70,7 @@ export default {
         },
       ],
       searchInput: "",
+      showAddNewProfile: false,
     };
   },
 
@@ -87,6 +95,10 @@ export default {
         profile.likes--;
       }
     },
+
+    showAddNewProfileHandler() {
+      this.showAddNewProfile = true;
+    },
   },
 
   computed: {
@@ -96,7 +108,7 @@ export default {
           .toLowerCase()
           .includes(this.searchInput.toLowerCase());
       });
-    }
+    },
   },
 };
 </script>
@@ -111,13 +123,9 @@ export default {
   font-family: "Roboto", helvetica, arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  padding: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  padding-bottom: 60px;
   position: relative;
-
+  height: 100vh;
   background: linear-gradient(
     135deg,
     rgba(65, 184, 131, 0.9),
@@ -132,12 +140,11 @@ button {
   padding: 1em;
   width: 100%;
   background-color: #41b883;
-  border: 1px solid;
+  border: 1px solid #41b883;
   color: #fff;
   cursor: pointer;
-  font-size: 0.75em;
+  font-size: 0.5em;
   font-weight: 600;
-  text-shadow: 0 1px 0 rgba(black, 0.2);
 }
 
 .content {
@@ -147,10 +154,10 @@ button {
 .section {
   width: 100%;
   min-width: 500px;
-  padding: 2em;
-  margin-top: 30px;
+  /* padding: 2em; */
+  margin: 30px auto;
   position: relative;
-  background: rgba(0, 0, 0, 0.15);
+  /* background: rgba(0, 0, 0, 0.15); */
 }
 
 @media screen and (min-width: 600px) {
@@ -160,10 +167,6 @@ button {
   }
 }
 
-.header {
-  color: #fff;
-}
-
 .section::before {
   content: "";
   position: absolute;
@@ -171,12 +174,11 @@ button {
   left: 0;
   height: 2px;
   width: 100%;
-  background: #35c3c1;
+  /* background: #35c3c1; */
 }
 
 .flex-row {
   display: flex;
-  margin-top: 1em;
 }
 
 .flex-column {
@@ -219,8 +221,8 @@ button {
 
 .buttons {
   display: flex;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);
-  margin-top: 30px;
+  /* box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22); */
+  /* margin-top: 30px; */
 }
 
 .profile {
@@ -244,7 +246,7 @@ button {
 .checkbox {
   background: #f5f6f8;
   margin-top: 1.5rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   font-size: 0.8rem;
   text-align: start;
 }
@@ -254,5 +256,23 @@ button {
   font-size: 0.8rem;
   font-weight: bold;
   margin: 0.25rem 2rem;
+}
+
+/* UI improvement */
+
+.header {
+  width: 100%;
+  color: #2c3e50;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+  background-color: #79f7be;
+}
+
+.m-md {
+  margin-top: 1.5rem;
+}
+
+.add-new {
+  cursor: pointer;
 }
 </style>

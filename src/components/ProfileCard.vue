@@ -99,6 +99,10 @@ export default {
   margin-left: 5px;
 }
 
+.likes-icon{
+  cursor: pointer;
+}
+
 .comment {
   display: flex;
   width: 100%;

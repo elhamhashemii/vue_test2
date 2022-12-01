@@ -1,7 +1,10 @@
 <template>
   <div class="section">
-    <p class="header">Add new profile:</p>
-    <div class="flex-row">
+    <p class="header p-md flex-row">
+        <span>add new profile</span>
+        <span class="add-new" @click="$emit('closeAddNew')">x</span>
+    </p>
+    <div class="flex-row m-md">
       <label class="label">Name:</label>
       <input
         v-model="name"
@@ -13,7 +16,7 @@
     <span class="invalid-msg" v-if="name !== '' && !validateName"
       >Name can only contains English characters</span
     >
-    <div class="flex-row">
+    <div class="flex-row m-md">
       <label class="label" for="filter">Email:</label>
       <input
         class="input"
@@ -109,6 +112,8 @@ export default {
     },
   },
 
+  emits: ["closeAddNew"],
+
   methods: {
     clearFileds() {
       (this.name = ""), (this.email = ""), (this.checkedSpecialisations = []);
@@ -134,6 +139,7 @@ export default {
       if (this.validateName && this.validateEmail) {
         this.profiles.push(this.newProfile);
         this.clearFileds();
+        this.$emit("closeAddNew");
       } else {
         this.showErrorMessage();
         this.clearFileds();
