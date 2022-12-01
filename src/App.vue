@@ -10,7 +10,6 @@
         <button @click="sortAsc">▲</button>
         <button @click="sortDesc">▼</button>
       </div>
-
       <ProfileCard
         v-for="profile in filteredProfiles"
         :key="profile.id"
@@ -18,118 +17,21 @@
         class="profile"
         @likeDislikeHandler="likeDislikeHandler(profile)"
       />
-
-      <div class="icons-note">
-        Icons made by
-        <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
-          >Freepik</a
-        >
-        from
-        <a href="https://www.flaticon.com/" title="Flaticon"
-          >www.flaticon.com</a
-        >
-      </div>
     </div>
-
-    <div class="section">
-      <p class="header">Add new profile:</p>
-      <div class="flex-row">
-        <label class="label">Name:</label>
-        <input
-          v-model="name"
-          class="input"
-          :class="name == '' || validateName ? '' : 'invalid'"
-          id="name"
-        />
-      </div>
-      <span class="invalid-msg" v-if="name !== '' && !validateName"
-        >Name can only contains English characters</span
-      >
-      <div class="flex-row">
-        <label class="label" for="filter">Email:</label>
-        <input
-          class="input"
-          :class="email == '' || validateEmail ? '' : 'invalid'"
-          id="email"
-          v-model="email"
-        />
-      </div>
-      <span class="invalid-msg" v-if="email !== '' && !validateEmail"
-        >Invalid email address</span
-      >
-      <div class="bg-white">
-        <div class="checkbox">Specialisation:</div>
-        <div class="p-md flex-column">
-          <div class="checkbox-item">
-            <input
-              class="input"
-              type="checkbox"
-              id="surgeon"
-              value="Surgeon"
-              v-model="checkedSpecialisations"
-            />
-            <label for="Surgeon" class="p-md">Surgeon</label>
-          </div>
-
-          <div class="checkbox-item">
-            <input
-              class="input"
-              type="checkbox"
-              id="radiologist"
-              value="Radiologist"
-              v-model="checkedSpecialisations"
-            />
-            <label for="Radiologist" class="p-md">Radiologist</label>
-          </div>
-
-          <div class="checkbox-item">
-            <input
-              class="input"
-              type="checkbox"
-              id="cardiologist"
-              value="Cardiologist"
-              v-model="checkedSpecialisations"
-            />
-            <label for="Cardiologist" class="p-md">Cardiologist</label>
-          </div>
-          <div class="checkbox-item">
-            <input
-              class="input"
-              type="checkbox"
-              id="psychiatrist"
-              value="Psychiatrist"
-              v-model="checkedSpecialisations"
-            />
-            <label for="Psychiatrist" class="p-md">Psychiatrist</label>
-          </div>
-          <div class="checkbox-item">
-            <input
-              class="input"
-              type="checkbox"
-              id="dermatologist"
-              value="Dermatologist"
-              v-model="checkedSpecialisations"
-            />
-            <label for="Dermatologist" class="p-md">Dermatologist</label>
-          </div>
-        </div>
-      </div>
-      <div v-if="formError" class="invalid-msg">
-        Please complete the form correctly
-      </div>
-      <button @click="addNewProfile">Add</button>
-    </div>
+    <AddNewProfile :profiles="profiles" />
   </div>
 </template>
 
 <script>
 import ProfileCard from "./components/ProfileCard";
+import AddNewProfile from "./components/AddNewProfile.vue";
 
 export default {
   name: "App",
 
   components: {
     ProfileCard,
+    AddNewProfile,
   },
 
   data() {
@@ -161,12 +63,6 @@ export default {
         },
       ],
       searchInput: "",
-      name: "",
-      email: "",
-      specialisation: "",
-      newProfile: {},
-      formError: false,
-      checkedSpecialisations: [],
     };
   },
 
@@ -181,36 +77,6 @@ export default {
       this.profiles.sort(function (a, b) {
         return b.likes - a.likes;
       });
-    },
-
-    clearFileds() {
-      (this.name = ""), (this.email = ""), (this.checkedSpecialisations = []);
-    },
-
-    showErrorMessage() {
-      this.formError = true;
-      setTimeout(() => {
-        this.formError = false;
-      }, 3000);
-    },
-
-    addNewProfile() {
-      let profilesLength = this.profiles.length;
-      this.newProfile = {
-        id: profilesLength + 1,
-        name: this.name,
-        email: this.email,
-        description: this.description,
-        likes: 0,
-        userHasLikedProfile: false,
-      };
-      if (this.validateName && this.validateEmail) {
-        this.profiles.push(this.newProfile);
-        this.clearFileds();
-      } else {
-        this.showErrorMessage();
-        this.clearFileds();
-      }
     },
 
     likeDislikeHandler(profile) {
@@ -230,19 +96,7 @@ export default {
           .toLowerCase()
           .includes(this.searchInput.toLowerCase());
       });
-    },
-
-    validateName() {
-      return /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/.test(this.name);
-    },
-
-    validateEmail() {
-      return /(.+)@(.+){2,}\.(.+){2,}/.test(this.email);
-    },
-
-    description() {
-      return this.checkedSpecialisations.toString();
-    },
+    }
   },
 };
 </script>
