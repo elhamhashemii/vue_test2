@@ -13,6 +13,7 @@
           <button @click="sortDesc">▼</button>
         </div>
       </div>
+      <!-- Part#1 , bug fixed by using profile.id instead of index -->
       <ProfileCard
         v-for="profile in filteredProfiles"
         :key="profile.id"
