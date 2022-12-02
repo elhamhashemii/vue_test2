@@ -104,6 +104,11 @@ export default {
       }
     },
 
+    // When profile.likes = 0, dislike action will make it -1
+    // I wanted to fix this, but if I do, then it means :
+    // the dislike will not be counted
+    // (You disliked a profile, but it will look like you didn't do anything!)
+    // SO, I didn't change this.
     dislikeHandler(profile) {
       profile.userHasDislikedProfile = !profile.userHasDislikedProfile;
       if (profile.userHasLikedProfile && profile.userHasDislikedProfile) {
