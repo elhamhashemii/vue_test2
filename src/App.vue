@@ -19,7 +19,8 @@
         :key="profile.id"
         :profile="profile"
         class="profile"
-        @likeDislikeHandler="likeDislikeHandler(profile)"
+        @likeHandler="likeHandler(profile)"
+        @dislikeHandler="dislikeHandler(profile)"
       />
     </div>
     <AddNewProfile
@@ -52,6 +53,7 @@ export default {
           description: "Anaesthesiologist",
           likes: 34,
           userHasLikedProfile: false,
+          userHasDislikedProfile: false,
         },
         {
           id: 2,
@@ -60,6 +62,7 @@ export default {
           description: "Radiologist",
           likes: 26,
           userHasLikedProfile: false,
+          userHasDislikedProfile: false,
         },
         {
           id: 3,
@@ -68,6 +71,7 @@ export default {
           description: "Surgeon",
           likes: 53,
           userHasLikedProfile: false,
+          userHasDislikedProfile: false,
         },
       ],
       searchInput: "",
@@ -88,12 +92,27 @@ export default {
       });
     },
 
-    likeDislikeHandler(profile) {
+    likeHandler(profile) {
       profile.userHasLikedProfile = !profile.userHasLikedProfile;
-      if (profile.userHasLikedProfile) {
+      if (profile.userHasLikedProfile && profile.userHasDislikedProfile) {
+        profile.userHasDislikedProfile = false;
+        profile.likes = profile.likes + 2;
+      } else if (profile.userHasLikedProfile) {
         profile.likes++;
       } else {
         profile.likes--;
+      }
+    },
+
+    dislikeHandler(profile) {
+      profile.userHasDislikedProfile = !profile.userHasDislikedProfile;
+      if (profile.userHasLikedProfile && profile.userHasDislikedProfile) {
+        profile.userHasLikedProfile = false;
+        profile.likes = profile.likes - 2;
+      } else if (profile.userHasDislikedProfile) {
+        profile.likes--;
+      } else {
+        profile.likes++;
       }
     },
 
@@ -149,11 +168,11 @@ button {
   font-size: 0.5em;
   font-weight: 600;
 }
-  @media screen and (max-width: 600px) {
-    button{
-      padding: 0.5rem;
-    }
+@media screen and (max-width: 600px) {
+  button {
+    padding: 0.5rem;
   }
+}
 
 .add-btn {
   padding: 1rem;
@@ -179,7 +198,6 @@ button {
     padding: 10px;
   }
 }
-
 
 .flex-row {
   display: flex;

@@ -11,13 +11,17 @@
           <div class="description">{{ profile.description }}</div>
         </div>
         <div class="likes">
-          <span class="likes-icon" @click="$emit('likeDislikeHandler')"
-            >
-            <span v-if="!profile.userHasLikedProfile">♡</span>
+          <span class="likes-icon" @click="$emit('likeHandler')">
+            <span v-if="!profile.userHasLikedProfile">🤍</span>
             <span v-else>💚</span>
-            </span
-          >
+          </span>
           <span class="likes-value">{{ profile.likes }}</span>
+        </div>
+        <div class="dislikes likes" @click="$emit('dislikeHandler')">
+          <div class="likes-icon">
+            <span v-if="profile.userHasDislikedProfile">👎</span>
+            <span v-else>👎🏻</span>
+          </div>
         </div>
       </div>
     </div>
@@ -32,7 +36,7 @@ import DoctorIcon from "./DoctorIcon";
 
 export default {
   name: "ProfileCard",
-  emits: ["likeDislikeHandler"],
+  emits: ["likeHandler , dislikeHandler"],
   components: {
     DoctorIcon,
   },
@@ -75,7 +79,7 @@ export default {
   width: 100%;
 }
 
-.profile{
+.profile {
   background-color: rgba(140, 255, 226, 0.097);
   padding: 0.5rem;
   border-radius: 0.75rem;
@@ -113,7 +117,7 @@ export default {
   margin-left: 5px;
 }
 
-.likes-icon{
+.likes-icon {
   cursor: pointer;
 }
 
